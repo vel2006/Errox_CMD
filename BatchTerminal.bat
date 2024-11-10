@@ -1,7 +1,8 @@
 @echo off
 :loop
 set cdir=%CD%
-set /p usr_cmd="%cdir%> "
+ser usr=%USERNAME%
+set /p usr_cmd="%usr%@%cdir%> "
 %usr_cmd%
 goto loop
 echo Somehow exited the main loop
