@@ -1,0 +1,17 @@
+@echo off
+title Errox_CMD
+echo  _____                        ____ __  __ ____  
+echo ^| ____^|_ __ _ __ _____  __   / ___^|  \/  ^|  _ \ 
+echo ^|  _^| ^| '__^| '__/ _ \ \/ /  ^| ^|   ^| ^|\/^| ^| ^| ^| ^|
+echo ^| ^|___^| ^|  ^| ^| ^| (_) ^>  ^<   ^| ^|___^| ^|  ^| ^| ^|_^| ^|
+echo ^|_____^|_^|  ^|_^|  \___/_/\_\___\____^|_^|  ^|_^|____/ 
+echo                         ^|_____^|
+echo.
+echo                      Created By: That1EthicalHacker
+echo                                        Version: 2.0
+echo.
+:: Starting basic info grabbing for a lay of the land
+echo Starting a gather of information for a lay of the land
+.\GatherSystemInfo.bat
+echo Starting a batch shell to bypass a block of cmd.exe
+.\BatchTerminal.bat
