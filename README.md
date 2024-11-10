@@ -69,3 +69,7 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
     <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD\> echo This is a working test
     This is a working test
     <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD\>
+
+## Usage:
+
+  First you have to get the collection of scripts onto the target system. Once the files are on (or an installer file) run the installer file if you have one, then the main.bat file. Finnaly, sit back and let the script do its thing!
