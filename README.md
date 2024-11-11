@@ -62,13 +62,13 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
     'query' is not recognized as an internal or external command,
     operable program or batch file.
     Getting: Current logged in users via query
-    Getting: Current user 'bingu' perms
+    Getting: Current user '<USERNAME>' perms
     Getting: All users
     Getting: All groups
     Getting: Password policy and other info
-    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD\> echo This is a working test
+    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD> echo This is a working test
     This is a working test
-    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD\>
+    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD>
 
 ## Usage:
 
