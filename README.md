@@ -1,5 +1,10 @@
 # Errox_CMD
 
+### Current Version:
+
+Version: 2.0
+
+(dont ask about 1.0)
 
 ## Basic coverage:
 
