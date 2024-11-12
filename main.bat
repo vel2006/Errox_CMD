@@ -12,6 +12,6 @@ echo                                        Version: 2.0
 echo.
 :: Starting basic info grabbing for a lay of the land
 echo Starting a gather of information for a lay of the land
-.\GatherSystemInfo.bat
+call GatherSystemInfo.bat
 echo Starting a batch shell to bypass a block of cmd.exe
-.\BatchTerminal.bat
+call BatchTerminal.bat
