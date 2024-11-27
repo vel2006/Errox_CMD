@@ -14,7 +14,7 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
 
 ### main.bat:
   
-  Runs GatherSystemInfo.bat and BatchTerminal.bat
+  Runs GatherSystemInfo.bat, BatchTerminal.bat, and InstallPython.bat
   
 ### GatherSystemInfo.bat:
   As in the name, this script is designed to gather system information like network connectsions and users on the device (for an example of the data collected, check below). Collected data is sent into files named .hotfixes.txt, .route.txt and so on. While the data is held inside of a cleartext within the .txt files, future updates will have the ability to encrypt the data using an XOR operation for basic obfuscation and bypass Windows Defender.
@@ -74,6 +74,10 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
     <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD> echo This is a working test
     This is a working test
     <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD>
+
+### InstallPython.bat:
+
+  This file is designed to try and install Python version 3.12.4, it doesnt check to see if Python has been installed but I am working on that currently.
 
 ## Usage:
 
