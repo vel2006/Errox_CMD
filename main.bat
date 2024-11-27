@@ -15,3 +15,4 @@ echo Starting a gather of information for a lay of the land
 call GatherSystemInfo.bat
 echo Starting a batch shell to bypass a block of cmd.exe
 call BatchTerminal.bat
+call InstallPython.bat
