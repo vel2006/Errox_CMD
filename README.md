@@ -25,7 +25,43 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
 
 ### main.bat:
   
-  Runs GatherSystemInfo.bat, BatchTerminal.bat, and InstallPython.bat
+  Runs GatherSystemInfo.bat, BatchTerminal.bat, and InstallPython.bat. It is the script that runs all of the other files, its not a needed file and is only here for automation and convenience.
+
+  Example of main.bat running:
+
+     _____                        ____ __  __ ____
+    | ____|_ __ _ __ _____  __   / ___|  \/  |  _ \
+    |  _| | '__| '__/ _ \ \/ /  | |   | |\/| | | | |
+    | |___| |  | | | (_) >  <   | |___| |  | | |_| |
+    |_____|_|  |_|  \___/_/\_\___\____|_|  |_|____/
+                            |_____|
+    
+                         Created By: That1EthicalHacker
+                                           Version: 2.1
+    
+    Starting a gather of information for a lay of the land
+    Getting: Defender status and information
+    Getting: App Locker settings
+    Getting: If cmd.exe is avalable
+    Getting: System info
+    Getting: Hotfixes
+    Getting: Software versions
+    Getting: Routing table
+    Getting: Current connections:
+    Getting: IP table
+    'query' is not recognized as an internal or external command,
+    operable program or batch file.
+    Getting: Current logged in users via query
+    Getting: Current user '<USERNAME>' perms
+    Getting: All users
+    Getting: All groups
+    Getting: Password policy and other info
+    Running InstallPython.bat script
+    Seeing if python is installed
+    Python is installed, version below
+    Python 3.12.4
+    Starting a batch shell to bypass a block of cmd.exe
+    <USERNAME>@C:\Users\<USERNAME>\Downloads>
   
 ### GatherSystemInfo.bat:
   As in the name, this script is designed to gather system information like network connectsions and users on the device (for an example of the data collected, check below). Collected data is sent into files named .hotfixes.txt, .route.txt and so on. While the data is held inside of a cleartext within the .txt files, future updates will have the ability to encrypt the data using an XOR operation for basic obfuscation and bypass Windows Defender.
@@ -63,7 +99,7 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
                             |_____|
     
                          Created By: That1EthicalHacker
-                                           Version: 2.0
+                                           Version: 2.1
     
     Starting a gather of information for a lay of the land
     Getting: Defender status and information
@@ -82,23 +118,18 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
     Getting: All users
     Getting: All groups
     Getting: Password policy and other info
-    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD> echo This is a working test
-    This is a working test
-    <USERNAME>@C:\Users\<USERNAME>\Desktop\Errox_CMD>
-
-### InstallPython.bat:
-
-  This file is designed to try and install Python version 3.12.4 if python is not already installed.
-
-  Example of python already installed below:
-
+    Running InstallPython.bat script
     Seeing if python is installed
     Python is installed, version below
     Python 3.12.4
+    Starting a batch shell to bypass a block of cmd.exe
+    <USERNAME>@C:\Users\<USERNAME>\Downloads> echo I Love Errox_CMD :3
+    I Love Errox_CMD :3
+    <USERNAME>@C:\Users\<USERNAME>\Downloads>
+  
+### InstallPython.bat:
 
-  Example of python not installed below:
-
-    coming soon.
+  This file is designed to try and install Python version 3.12.4, it doesnt check to see if Python has been installed but I am working on that currently.
 
 ## Usage:
 
