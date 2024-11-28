@@ -8,6 +8,7 @@ if %errorlevel% neq 0 (
     set InstallerPath=%TEMP%\python-installer.exe
     powershell -Command "Invoke-WebRequest -Uri '%PythonInstaller%' -OutFile '%InstallerPath%'"
     %InstallerPath% /quiet InstallAllUsers=1 PrependPath=1
+    echo python should be installed now
 ) else (
     echo Python is installed, version below
     python --version
