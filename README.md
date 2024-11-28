@@ -12,6 +12,17 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
 
 ## How Errox_CMD works:
 
+### Installer.bat
+
+  Installer.bat is the installer file for Errox_CMD. You simply need to recreate or run this file on the device you wish to have Errox_CMD on and BAM there it is, however this file does depend on github not being blocked on the network that the device running Installer.bat is on.
+  
+  Example of Installer.bat running:
+  
+    Getting GatherSystemInfo script...
+    Getting BatchTerminal script...
+    Getting InstallPython script...
+    Getting Main script...               
+
 ### main.bat:
   
   Runs GatherSystemInfo.bat, BatchTerminal.bat, and InstallPython.bat
