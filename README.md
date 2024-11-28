@@ -88,7 +88,17 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
 
 ### InstallPython.bat:
 
-  This file is designed to try and install Python version 3.12.4, it doesnt check to see if Python has been installed but I am working on that currently.
+  This file is designed to try and install Python version 3.12.4 if python is not already installed.
+
+  Example of python already installed below:
+
+    Seeing if python is installed
+    Python is installed, version below
+    Python 3.12.4
+
+  Example of python not installed below:
+
+    coming soon.
 
 ## Usage:
 
