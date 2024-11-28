@@ -13,6 +13,7 @@ echo.
 :: Starting basic info grabbing for a lay of the land
 echo Starting a gather of information for a lay of the land
 call GatherSystemInfo.bat
+echo Running InstallPython.bat script
+call InstallPython.bat
 echo Starting a batch shell to bypass a block of cmd.exe
 call BatchTerminal.bat
-call InstallPython.bat
