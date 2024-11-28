@@ -14,7 +14,7 @@ Errox_CMD is a collection of batch scripts designed to collect basic system info
 
 ### Installer.bat
 
-  Installer.bat is the installer file for Errox_CMD. You simply need to recreate or run this file on the device you wish to have Errox_CMD on and BAM there it is, however this file does depend on github not being blocked on the network that the device running Installer.bat is on.
+  Installer.bat is the installer file for Errox_CMD. You simply need to recreate or run this file on the device you wish to have Errox_CMD on and BAM there it is, however this file does depend on github not being blocked on the network that the device running Installer.bat is on. This is due to it downloading the files through web requests to the site branch of this repo, I am working on having it create the files through binary recreation so there isnt as many lines as there would be inside of line by line creation.
   
   Example of Installer.bat running:
   
