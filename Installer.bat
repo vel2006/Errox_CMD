@@ -19,13 +19,13 @@ if %errorlevel% neq 0 (
 ) else (
     echo GitHub is reachable, creating via download...
     echo Getting GatherSystemInfo script...
-    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/GatherSystemInfo.bat' -OutFile 'GatherSystemInfo.bat'
+    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/GatherSystemInfo.bat' -OutFile 'GatherSystemInfo.bat'"
     echo Getting BatchTerminal script...
-    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/BatchTerminal.bat' -OutFile 'BatchTerminal.bat'
+    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/BatchTerminal.bat' -OutFile 'BatchTerminal.bat'"
     echo Getting InstallPython script...
-    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/InstallPython.bat' -OutFile 'InstallPython.bat'
+    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/InstallPython.bat' -OutFile 'InstallPython.bat'"
     echo Getting Main script...
-    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/main.bat' -OutFile 'main.bat'
+    powershell -Command "Invoke-WebRequest -Uri 'https://vel2006.github.io/Errox_CMD/main.bat' -OutFile 'main.bat'"
 )
 echo Install Script ended, run main.bat for Errox_CMD
 pause
