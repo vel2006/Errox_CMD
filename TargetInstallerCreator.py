@@ -768,7 +768,7 @@ def InstallerScript_Creation(target_language:str):
 print(" _____                        ____ __  __ ____  \n| ____|_ __ _ __ _____  __   / ___|  \\/  |  _ \\ ")
 print("|  _| | '__| '__/ _ \\ \\/ /  | |   | |\\/| | | | |\n| |___| |  | | | (_) >  <   | |___| |  | | |_| |")
 print("|_____|_|  |_|  \\___/_/\\_\\___\\____|_|  |_|____/ \n                        |_____|")
-print("                    Created by: That1EthicalHacker\n                       Version: 3.1")
+print("                    Created by: That1EthicalHacker\n                       Version: 3.5")
 while True:
     print("[i] Please input the language the installer file will be made in;\n\tC\n\tPython")
     user_choice = input(">")
