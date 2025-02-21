@@ -221,7 +221,6 @@ def LayOfTheLand_Creation(tagret_modules:list):
                         'dump':(
                             'netsh ipsec dump\\n'
                         ),
-                        # Rule is not included due to it not working on my machiene...
                         'dynamic':(
                             'netsh ipsec dynamic dump\\n',
                             'netsh ipsec dynamic show config\\n',
@@ -421,7 +420,7 @@ def LayOfTheLand_Creation(tagret_modules:list):
                             'netsh wfp dump\\n'
                         ),
                         'show':(
-                            # appid not included due to it needing an appID
+                            # Appid not included due to it needing an appID
                             'netsh wfp show boottimepolicy\\n',
                             'netsh wfp show filters\\n',
                             'netsh wfp show ikeevents\\n',
@@ -472,7 +471,6 @@ def LayOfTheLand_Creation(tagret_modules:list):
                         'reportissues':(
                             'netsh wlan reportissues\\n'
                         ),
-                        # I know there is a 'show all' option, but I dont like it's formatting.
                         'show':(
                             'netsh wlan show allowexplicitcreds\\n',
                             'netsh wlan show autoconfig\\n',
@@ -570,10 +568,10 @@ def LayOfTheLand_Creation(tagret_modules:list):
     return return_code
 # Creating the shell file, it's what's used as a way to bypass the blockage of CMD without having to use shellcode injection
 def ShellScript_Creation(target_language:str, parent_language_c:bool):
-    allowed_languages = ('batch')
+    allowed_languages = ('batch', 'python')
     target_language = target_language.strip().lower()
     if target_language not in allowed_languages:
-        return '\'target_language\' has to be one of the following: \'batch\''
+        return '\'target_language\' has to be one of the following: \'batch\', \'python\''
     print("[#] Creating shell script...")
     match target_language:
         case 'batch':
@@ -582,6 +580,28 @@ def ShellScript_Creation(target_language:str, parent_language_c:bool):
                 return "@echo off\\n:loop\\nset cdir=%%CD%%\\nset /p usr_cmd=\\\"%%cdir%%> \\\"\\n%%usr_cmd%%\\ngoto loop\\necho Somehow exited the main loop\\npause\\n"
             print("[#] Shell script created.")
             return "@echo off\\n:loop\\nset cdir=%CD%\\nset /p usr_cmd=\\\"%cdir%> \\\"\\n%usr_cmd%\\ngoto loop\\necho Somehow exited the main loop\\npause\\n"
+        case 'python':
+            return_code = "import subprocess\\nimport threading\\nimport queue\\nimport time\\n\\nclass Shell():\\n\\tdef __init__(self):\\n\\t\\t"
+            return_code += "print(\\\"[#] Starting shell...\\\")\\n\\t\\tself.cmd_shell = subprocess.Popen(\\n\\t\\t\\t[\\\'cmd\\\'],\\n\\t\\t\\tstdin=subprocess.PIPE,\\n\\t\\t\\t"
+            return_code += "stdout=subprocess.PIPE,\\n\\t\\t\\tstderr=subprocess.PIPE,\\n\\t\\t\\ttext=True,\\n\\t\\t\\tbufsize=1\\n\\t\\t)\\n\\t\\tself.timeout_buffer = 2\\n\\t\\tself.output_queue = queue.Queue()\\n\\t\\t"
+            return_code += "self.read_shell_handle = threading.Thread(target=self.read_shell, args=(self.cmd_shell, self.output_queue))\\n\\t\\tself.read_shell_handle.start()\\n\\t\\tprint(\\\"[#] Shell started!\\\")\\n\\t"
+            return_code += "def read_shell(self, process_handle, output_queue):\\n\\t\\tfor line in iter(process_handle.stdout.readline, \\\'\\\'):\\n\\t\\t\\toutput_queue.put(line)\\n\\t\\t"
+            return_code += "process_handle.stdout.close()\\n\\tdef execute_command(self, command:str):\\n\\t\\tself.cmd_shell.stdin.write(command.strip() + \\\'\\\\n\\\')\\n\\t\\tself.cmd_shell.stdin.flush()\\n\\t\\t"
+            return_code += "time.sleep(self.timeout_buffer)\\n\\t\\toutput_data = []\\n\\t\\twhile not self.output_queue.empty():\\n\\t\\t\\toutput_data.append(self.output_queue.get())\\n\\t\\t"
+            return_code += "response = \\'\\'.join(output_data).strip()\\n\\t\\tif response:\\n\\t\\t\\treturn response\\n\\t\\treturn \\\'[!] Command had no response.\\\\n[!] Likely due to cmd.exe process ending or never started.\\\'\\n\\t"
+            return_code += "def close_shell(self):\\n\\t\\tself.execute_command(\\\'exit\\\')\\n\\t\\tself.read_shell_handle.join()\\nshell = Shell()\\nwhile True:\\n\\tprint(\\\"[*] Input command to execute.\\\\n[i] Type \\\\'EnD\\\\' to end the program.\\\")\\n\\t"
+            return_code += "user_command = input(\\\">\\\")\\n\\tif user_command.strip() == \\\'EnD\\\':\\n\\t\\tshell.close_shell()\\n\\t\\tbreak\\n\\tresponse = shell.execute_command(user_command)\\n\\tprint(response)"
+            print("[#] Shell script created")
+            return return_code
+# Method for creating the exfiltration script
+def ExfilDataCreation(target_language:str, target_website:str, target_method:str):
+    language = target_language.strip().lower()
+    method = target_method.strip().lower()
+    if language not in ('python', 'c#'):
+        return '\'target_language\' has to be one of the following: \'python\', \'c#\''
+    if method not in ('icmp', 'http', 'https'):
+        return '\'target_language\' has to be one of the following: \'icmp\', \'http\', \'https\''
+    print("[#] Creating exfil script...")
 # Method for having less lines and to simplify the usage of smaller or embeded modules that have large sections within them
 def SmallerModuleItteration(target_module:list, target_path:list):
     temp_modules = target_module
@@ -683,7 +703,6 @@ def InstallerScript_Creation(target_language:str):
                 case 'window filtering platform':
                     target_modules.append(('netsh', 'wfp', 'dump'))
                     target_modules.append(('netsh', 'wfp', 'show'))
-    # Get the needed lines to execute inside of the batch file
     target_lines = []
     returned_lines = LayOfTheLand_Creation(target_modules)
     for line in returned_lines:
@@ -702,39 +721,60 @@ def InstallerScript_Creation(target_language:str):
                     else:
                         file.write(f"\tfprintf(fptr, \"set var={module}%%var%%>>\\\".output1423.txt\\\"\\n\");\n")
                 file.write("\tfclose(fptr);\n")
-                file.write(f"\tfptr = fopen(\"shell.bat\", \"w\");\n\tfprintf(fptr, \"{ShellScript_Creation('batch', True)}\");\n\tfclose(fptr);\n")
-                file.write("\tprintf(\"[#] Collecting system information...\\n\");\n\tsystem(\".\\\\created.bat\");\n\tprintf(\"[#] Starting shell...\\n\");\n\tsystem(\".\\\\shell.bat\");\n")
+                print("[#] What language will the shell be made in? [Batch / Python] Python")
+                shell_language = input(">")
+                shell_language = shell_language.strip().lower()
+                if shell_language not in ('python', 'batch'):
+                    print("[i] Language not recognized, defaulting to Batch...")
+                    shell_language = 'batch'
+                if shell_language == 'batch':
+                    file.write(f"\tfptr = fopen(\"shell.bat\", \"w\");\n\tfprintf(fptr, \"{ShellScript_Creation(shell_language, True)}\");\n\tfclose(fptr);\n")
+                    file.write("\tprintf(\"[#] Collecting system information...\\n\");\n\tsystem(\".\\\\created.bat\");\n\tprintf(\"[#] Starting shell...\\n\");\n\tsystem(\".\\\\shell.bat\");\n")
+                if shell_language == 'python':
+                    file.write(f"\tfptr = fopen(\"shell.py\", \"w\");\n\tfprintf(fptr, \"{ShellScript_Creation(shell_language, True)}\");\n\tfclose(fptr);\n")
+                    file.write("\tprintf(\"[#] Collecting system information...\\n\");\n\tsystem(\".\\\\created.bat\");\n\tprintf(\"[#] Starting shell...\\n\");\n\tsystem(\"python .\\\\shell.py\");\n")
                 file.write("\treturn 0;\n}")
                 file.close()
         case 'python':
-            with open('installer.py', 'w') as file:
-                file.write(f"import os\nwith open (\'created.bat\', \'w\') as file:\n\tfile.write(\"@echo off\\nset var={target_lines[0]}%var%>\\\".output1423.txt\\\"\\n\")\n")
-                target_lines.remove(target_lines[0])
-                for module in target_lines:
-                    if type(module) == tuple:
-                        for line in module:
-                            file.write(f"\tfile.write(\"set var={line}%var%>>\\\".output1423.txt\\\"\\n\")\n")
-                    else:
-                            file.write(f"\tfile.write(\"set var={module}%var%>>\\\".output1423.txt\\\"\\n\")\n")
-                file.write("\tfile.close()\n")
-                file.write(f"with open(\'shell.bat\', \'w\') as file:\n\tfile.write(\"{ShellScript_Creation('batch', False)}\")\n\tfile.close()\n")
-                file.write("print(\"[#] Collecting system information...\")\nos.system(\".\\\\created.bat\")\nprint(\"[#] Starting shell...\")\nos.system(\".\\\\shell.bat\")\n")
-                file.close()
+            try:
+                with open('installer.py', 'w') as file:
+                    file.write(f"import os\nwith open (\'created.bat\', \'w\') as file:\n\tfile.write(\"@echo off\\nset var={target_lines[0]}%var%>\\\".output1423.txt\\\"\\n\")\n")
+                    target_lines.remove(target_lines[0])
+                    for module in target_lines:
+                        if type(module) == tuple:
+                            for line in module:
+                                file.write(f"\tfile.write(\"set var={line}%var%>>\\\".output1423.txt\\\"\\n\")\n")
+                        else:
+                                file.write(f"\tfile.write(\"set var={module}%var%>>\\\".output1423.txt\\\"\\n\")\n")
+                    file.write("\tfile.close()\n")
+                    print("[#] What language will the shell be made in? [Batch / Python] Python")
+                    shell_language = input(">")
+                    shell_language = shell_language.strip().lower()
+                    if shell_language not in ('python', 'batch'):
+                        print("[i] Language not recognized, defaulting to Batch...")
+                        shell_language = 'batch'
+                    if shell_language == 'python':
+                        file.write(f"with open(\'shell.py\', \'w\') as file:\n\tfile.write(\"{ShellScript_Creation(shell_language, False)}\")\n\tfile.close()\n")
+                        file.write("print(\"[#] Collecting system information...\")\nos.system(\".\\\\created.bat\")\nprint(\"[#] Starting shell...\")\nos.system(\"python .\\\\shell.py\")")
+                    if shell_language == 'batch':
+                        file.write(f"with open(\'shell.bat\', \'w\') as file:\n\tfile.write(\"{ShellScript_Creation(shell_language, False)}\")\n\tfile.close()\n")
+                        file.write("print(\"[#] Collecting system information...\")\nos.system(\".\\\\created.bat\")\nprint(\"[#] Starting shell...\")\nos.system(\".\\\\shell.bat\")")
+                    file.close()
+            except Exception as e:
+                print(e)
+                exit()
     print("[#] Installer file created.")
     return "worked"
-print(" _____                        ____ __  __ ____  ")
-print("| ____|_ __ _ __ _____  __   / ___|  \\/  |  _ \\ ")
-print("|  _| | '__| '__/ _ \\ \\/ /  | |   | |\\/| | | | |")
-print("| |___| |  | | | (_) >  <   | |___| |  | | |_| |")
-print("|_____|_|  |_|  \\___/_/\\_\\___\\____|_|  |_|____/ ")
-print("                        |_____|")
-print("                    Created by: That1EthicalHacker")
-print("                       Version: 3.1")
+print(" _____                        ____ __  __ ____  \n| ____|_ __ _ __ _____  __   / ___|  \\/  |  _ \\ ")
+print("|  _| | '__| '__/ _ \\ \\/ /  | |   | |\\/| | | | |\n| |___| |  | | | (_) >  <   | |___| |  | | |_| |")
+print("|_____|_|  |_|  \\___/_/\\_\\___\\____|_|  |_|____/ \n                        |_____|")
+print("                    Created by: That1EthicalHacker\n                       Version: 3.1")
 while True:
     print("[i] Please input the language the installer file will be made in;\n\tC\n\tPython")
     user_choice = input(">")
     output = InstallerScript_Creation(user_choice)
     if output == "worked":
-        break
+        exit()
     else:
-        print(output)
+        print("[!] Encountered error while creating Installer script!\nPlease report as an issue and try again :3")
+        exit()
