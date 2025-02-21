@@ -14,7 +14,15 @@ Errox_CMD is a collection of scripts designed to collect basic system informatio
 
 ### TargetInstallerCreator.py
 
-  TargetInstallerCreator.py is the new installer creation tool for Errox_CMD. Instead of there being a single large installer file (annoying to deal with) I have instead decided to have version 3.0 bring the new installer file along with some new things that the info collection script can look for. This installer does not rely on internet sites or connection to work, it simply creates the files from plaintext source code. This installer file is designed to create a file (either C or Python currently) that you get to choose the language of, so in the event that a certain language or file type is not allowed to run on the device you can avoid blockage via using another language for the installer file. Once the installer file has created the files, it will run them. It runs a basic Lay of The Land (LTL) batch script, that was customized when creating the installer file. After the LTL file runs, the shell runs, currently it can only be a .bat script, but im working on creating a limited version designed in Python and maybe Java.
+  TargetInstallerCreator.py is the new installer creation tool for Errox_CMD. Instead of there being a single large installer file (annoying to deal with) I have instead decided to have version 3.0 bring the new installer file along with some new things that the info collection script can look for. This installer does not rely on internet sites or connection to work, it simply creates the files from plaintext source code. This installer file is designed to create a file (either C or Python currently) that you get to choose the language of, so in the event that a certain language or file type is not allowed to run on the device you can avoid blockage via using another language for the installer file. Once the installer file has created the files, it will run them. It runs a basic Lay of The Land (LTL) batch script, that was customized when creating the installer file. After the LTL file runs, the shell runs, currently it can only be either batch or python script. Below is an explination of how each works.
+
+  ### Batch shell:
+
+  Works by abusing how Batch is the same language used to make cmd.exe work, meaning that the user can input the same commands as they would in a user created instance of cmd. This also means that it bypasses the blocking of a user creating a cmd process.
+
+  ### Python shell:
+
+  Works by calling cmd.exe through subprocess (has not been tested for bypassing the blockage of cmd.exe yet) and constantly reading it's output, meaning that the process never closes or halts. While a crude method, it does work. The input is then fed into the subprocess input, executed, then read due to the constant reading of the process. While, this can be detected by it's long cmd.exe process, it does pass any pure file scan.
 
 ## Out dated information:
 
