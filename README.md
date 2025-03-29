@@ -2,7 +2,7 @@
 
 ### Current Version:
 
-Version: 3.5
+Version: 3.7
 
 (dont ask about 1.0)
 
@@ -15,6 +15,8 @@ Errox_CMD is a collection of scripts designed to collect basic system informatio
 ### TargetInstallerCreator.py
 
   TargetInstallerCreator.py is the new installer creation tool for Errox_CMD. Instead of there being a single large installer file (annoying to deal with) I have instead decided to have version 3.0 bring the new installer file along with some new things that the info collection script can look for. This installer does not rely on internet sites or connection to work, it simply creates the files from plaintext source code. This installer file is designed to create a file (either C or Python currently) that you get to choose the language of, so in the event that a certain language or file type is not allowed to run on the device you can avoid blockage via using another language for the installer file. Once the installer file has created the files, it will run them. It runs a basic Lay of The Land (LTL) batch script, that was customized when creating the installer file. After the LTL file runs, the shell runs, currently it can only be either batch or python script. Below is an explination of how each works.
+
+  Version 3.7 brought changes to how the dictionary is handled inside of TargetInstallerCreator.py. Instead of using a static dictionary of commands, anyone can now simply edit the contents of each directory holding commands, and even add their own! This allows for the script to be more versatile and change on the fly with each user's needs.
 
   ### Batch shell:
 
@@ -30,7 +32,7 @@ Errox_CMD is a collection of scripts designed to collect basic system informatio
 
 #### Installer.bat
 
-  Installer.bat is the installer file for Errox_CMD. You simply need to recreate or run this file on the device you wish to have Errox_CMD on and BAM there it is, however this file does depend NOT on github being blocked on the network that the device running Installer.bat is on. This is due to Installer.bat testing to see if a connection page is up and responding, if it is then Installer.bat will install all other files through web requests. If the page is not reachable or doesnt respond, then Installer.bat will create the hard coded in versions inside of itself through base64.
+  Installer.bat is the first installer file for Errox_CMD. You simply need to recreate or run this file on the device you wish to have Errox_CMD on and BAM there it is, however this file does depend NOT on github being blocked on the network that the device running Installer.bat is on. This is due to Installer.bat testing to see if a connection page is up and responding, if it is then Installer.bat will install all other files through web requests. If the page is not reachable or doesnt respond, then Installer.bat will create the hard coded in versions inside of itself through base64.
   
   Example of Installer.bat running with no internet connection:
   
