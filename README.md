@@ -2,7 +2,7 @@
 
 ### Current Version:
 
-Version: 3.7
+Version: 4.0
 
 (dont ask about 1.0)
 
@@ -14,9 +14,7 @@ Errox_CMD is a collection of scripts designed to collect basic system informatio
 
 ### TargetInstallerCreator.py
 
-  TargetInstallerCreator.py is the new installer creation tool for Errox_CMD. Instead of there being a single large installer file (annoying to deal with) I have instead decided to have version 3.0 bring the new installer file along with some new things that the info collection script can look for. This installer does not rely on internet sites or connection to work, it simply creates the files from plaintext source code. This installer file is designed to create a file (either C or Python currently) that you get to choose the language of, so in the event that a certain language or file type is not allowed to run on the device you can avoid blockage via using another language for the installer file. Once the installer file has created the files, it will run them. It runs a basic Lay of The Land (LTL) batch script, that was customized when creating the installer file. After the LTL file runs, the shell runs, currently it can only be either batch or python script. Below is an explination of how each works.
-
-  Version 3.7 brought changes to how the dictionary is handled inside of TargetInstallerCreator.py. Instead of using a static dictionary of commands, anyone can now simply edit the contents of each directory holding commands, and even add their own! This allows for the script to be more versatile and change on the fly with each user's needs.
+TargetInstallerCreator.py is used to create the installer file that would be used on the target system. It works by getting the wanted modules and programming language for the installer. The modules are loaded and held within a json file allowing for customizability by the user and future update maintainability. Once all of the modules are gotten the installer file is created and dropped to disk.
 
   ### Batch shell:
 
@@ -27,6 +25,11 @@ Errox_CMD is a collection of scripts designed to collect basic system informatio
   Works by calling cmd.exe through subprocess (has not been tested for bypassing the blockage of cmd.exe yet) and constantly reading it's output, meaning that the process never closes or halts. While a crude method, it does work. The input is then fed into the subprocess input, executed, then read due to the constant reading of the process. While, this can be detected by it's long cmd.exe process, it does pass any pure file scan.
 
 ## Out dated information:
+
+### Version 3.7
+
+  Version 3.7 brought changes to how the dictionary is handled inside of TargetInstallerCreator.py. Instead of using a static dictionary of commands, anyone can now simply edit the contents of each directory holding commands, and even add their own! This allows for the script to be more versatile and change on the fly with each user's needs.
+
 
 ### Version 2
 
