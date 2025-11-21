@@ -1,0 +1,439 @@
+{
+    "windows home": {
+        "cmd": {
+            "system information": {
+                "description": "Commands to get high level information about the system",
+                "commands": [
+                    "hostname",
+                    "ver",
+                    "systeminfo",
+                    "driverquery /v"
+                ]
+            },
+            "user information": {
+                "description": "Commands to get high level current user information",
+                "commands": [
+                    "whoami /all",
+                    "whoami /priv",
+                    "whoami /groups",
+                    "net user",
+                    "net localgroup",
+                    "net localgroup administrators",
+                    "query user"
+                ]
+            },
+            "networking basic": {
+                "description": "Commands to get high level networking information",
+                "commands": [
+                    "ipconfig /all",
+                    "netstat -ano",
+                    "arp -a",
+                    "route print",
+                    "tracert 8.8.8.8"
+                ]
+            },
+            "networking advanced": {
+                "description": "Commands to get advanced networking information",
+                "commands": [
+                    "getmac",
+                    "dnsquery user -limit 0",
+                    "dnsquery group -limit 0",
+                    "dnsquery computer -limit 0",
+                    "dnsquery subnet -limit 0",
+                    "dnsquery server -limit 0"
+                ]
+            },
+            "file system": {
+                "description": "Commands to get information about the file system and drives",
+                "commands": [
+                    "dir /a",
+                    "pwd"
+                ]
+            },
+            "processes and services": {
+                "description": "Commands to get information about running processes",
+                "commands": [
+                    "tasklist /svc",
+                    "sc query",
+                    "sc query type=service"
+                ]
+            },
+            "domain and network shares": {
+                "description": "Commands to get connected domain and network share information",
+                "commands": [
+                    "net view",
+                    "net view /domain",
+                    "net view \\\\hostname",
+                    "net group /domain",
+                    "net group \"Domain Admins\"",
+                    "net accounts /domain",
+                    "net use",
+                    "nltest /domain_trusts"
+                ]
+            },
+            "user permissions": {
+                "description": "Commands to get current user permissions",
+                "commands": [
+                    "icalcs C:\\Windows",
+                    "icalcs C:\\Users",
+                    "fsutil fsinfo drives",
+                    "fsutil volume diskfree C:"
+                ]
+            },
+            "autorun and startup": {
+                "description": "Commands to get autorun and startup programs",
+                "commands": [
+                    "schtasks /query /fo LIST /v"
+                ]
+            },
+            "security controls": {
+                "description": "Commands to get current security settings",
+                "commands": [
+                    "auditpol /get /category:*"
+                ]
+            },
+            "logs and events": {
+                "description": "Commands to get information about logs and event",
+                "commands": [
+                    "wevtutil el",
+                    "wevtutil qe Security /c:50 /rd:true /f:text",
+                    "logman query",
+                    "logman query providers",
+                    "logman query sessions"
+                ]
+            },
+            "storage": {
+                "description": "Commands to get information about current storage and disk usage",
+                "commands": [
+                    "diskpart",
+                    "diskpart list volume",
+                    "diskpart list disk",
+                    "mountvol",
+                    "mountvol /r",
+                    "fsutil fsinfo ntfsinfo C:\\",
+                    "fsutil reparsepoint query C:\\"
+                ]
+            },
+            "cryptography": {
+                "description": "Commands to get information about cryptography on the current system",
+                "commands": [
+                    "certutil -dump",
+                    "certutil -store my",
+                    "certutil -verifystore root",
+                    "certutil -urlcache",
+                    "certutil -getreg",
+                    "cipher /u /n",
+                    "cipher /w:C:\\"
+                ]
+            },
+            "shadow copys": {
+                "description": "Commands to get information about current shadow copys",
+                "commands": [
+                    "vssadmin list shadows",
+                    "vssadmin list writers",
+                    "vssadmin shadowcopy",
+                    "esentutl /y",
+                    "ntdsutil",
+                    "wevtutil gli Security"
+                ]
+            },
+            "lateral movement": {
+                "description": "Commands to see possible methods of lateral movement",
+                "commands": [
+                    "qwinsta",
+                    "query session",
+                    "net session",
+                    "net use",
+                    "net view",
+                    "netstat -ano"
+                ]
+            },
+            "deep system state": {
+                "description": "Commands to get information about the system state",
+                "commands": [
+                    "fltmc",
+                    "fltmc filters",
+                    "sc query type=driver",
+                    "openfiles /query",
+                    "takeown /f C:\\Windows"
+                ]
+            },
+            "kernel information": {
+                "description": "Commands to get information about the kernel",
+                "commands": [
+                    "kd",
+                    "powercfg /energy",
+                    "powercfg /sleepstudy",
+                    "powercfg /batteryreport",
+                    "regini"
+                ]
+            }
+        },
+        "powershell": {
+            "system information": {
+                "description": "Commands to get high level information about the system",
+                "commands": [
+                    "powershell -Command \"Get-ComputerInfo\"",
+                    "powershell -Command \"Get-HotFix\""
+                ]
+            },
+            "networking advanced": {
+                "description": "Commands to get advanced networking information",
+                "commands": [
+                    "powershell -Command \"Get-NetAdapter\"",
+                    "powershell -Command \"Get-NetIPAddress\"",
+                    "powershell -Command \"Get-NetRoute\"",
+                    "powershell -Command \"Get-DnsClientServerAddress\"",
+                    "powershell -Command \"Get-NetTCPConnection\""
+                ]
+            },
+            "domain and network shares": {
+                "description": "Commands to get connected domain and network share information",
+                "commands": [
+                    "powershell -Command \"Get-SmbShare\"",
+                    "powershell -Command \"Get-SmbMapping\""
+                ]
+            },
+            "user permissions": {
+                "description": "Commands to get current user permissions",
+                "commands": [
+                    "powershell -Command \"Get-LocalUser\"",
+                    "powershell -Command \"GetLocalGroupMember -Group Administrators\"",
+                    "powershell -Command \"Get-Acl -Path C:\\Windows\""
+                ]
+            },
+            "autorun and startup": {
+                "description": "Commands to get autorun and startup programs",
+                "commands": [
+                    "powershell -Command \"Get-ScheduledTask\"",
+                    "powershell -Command \"Get-CimInstance Win32_StartupCommand\""
+                ]
+            },
+            "security controls": {
+                "description": "Commands to get information about security controls on the current device",
+                "commands": [
+                    "powershell -Command \"Get-MpComputerStatus\"",
+                    "powershell -Command \"Get-MpPreference\"",
+                    "powershell -Command \"Get-MpThreatCatalog\"",
+                    "powershell -Command \"Get-ItemProperty -Path HKLM:\\System\\CurrentControlSet\\Control\\Lsa\""
+                ]
+            },
+            "logs and events": {
+                "description": "Commands to get logs and events",
+                "commands": [
+                    "powershell -Command \"Get-WinEvent -ListLog *\"",
+                    "powershell -Command \"Get-Package\"",
+                    "powershell -Command \"Get-CimInstance Win32_InstalledStoreProgram\""
+                ]
+            },
+            "wmi enumeration": {
+                "description": "Commands to enumerate Windows Managemnt Information",
+                "commands": [
+                    "powershell -Command \"Get-WmiObject Win32_Process\"",
+                    "powershell -Command \"Get-WmiObject Win32_Service\"",
+                    "powershell -Command \"Get-CimInstance Win32_ComputerSystem\""
+                ]
+            },
+            "cryptography": {
+                "description": "Commands to get information about cryptography on the current system",
+                "commands": [
+                    "powershell -Command \"Get-ChildItem Cert:\\\""
+                ]
+            },
+            "shadow copys": {
+                "description": "Commands to get information about current shadow copys",
+                "commands": [
+                    "powershell -Command \"Get-ItemProperty HKLM:\\SYSTEM\\ControlSet001\\Services\""
+                ]
+            },
+            "lateral movement": {
+                "description": "Commands to see possible methods of lateral movement",
+                "commands": [
+                    "powershell -Command \"Get-SmbOpenFile\"",
+                    "powershell -Command \"Get-SmbSession\"",
+                    "powershell -Command \"Get-NetFirewallRule\""
+                ]
+            },
+            "deep system state": {
+                "description": "Commands to get information about the system state",
+                "commands": [
+                    "powershell -Commands \"Get-WinEvent -ListProvider *\""
+                ]
+            }
+        },
+        "windows managment insturmentaion command line": {
+            "system information": {
+                "description": "Commands to get high level information about the system",
+                "commands": [
+                    "wmic os get Caption,Version,BuildNumber,OSArchitecture",
+                    "wmic computersystem get model,manafacturer",
+                    "wmic bios get serialnumber"
+                ]
+            },
+            "domain and network shares": {
+                "description": "Commands to get connected domain and network share information",
+                "commands": [
+                    "wmic share get name,path"
+                ]
+            },
+            "autorun and startup": {
+                "description": "Commands to get autorun and startup programs",
+                "commands": [
+                    "wmic startup list full"
+                ]
+            },
+            "wmi enumeration": {
+                "description": "Commands to enumerate Windows Managemnt Information",
+                "commands": [
+                    "wmic process list full",
+                    "wmic service list full",
+                    "wmic useraccount list full",
+                    "wmic computersystem list full",
+                    "wmic logicaldisk list full",
+                    "wmic nteventlog list full"
+                ]
+            },
+            "storage": {
+                "description": "Commands to get information about current storage and disk usage",
+                "commands": [
+                    "wmic volume list full"
+                ]
+            },
+            "shadow copys": {
+                "description": "Commands to get information about current shadow copys",
+                "commands": [
+                    "wmic shadowcopy list"
+                ]
+            }
+        },
+        "registry": {
+            "security controls": {
+                "description": "Commands to get current security settings",
+                "commands": [
+                    "reg query HKLM /s",
+                    "reg query HKCU /s",
+                    "reg query HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+                    "reg query HTLK\\SYSTEM\\CurrentContolSet\\Control\\Session Manager",
+                    "reg query HKLM\\Security /s",
+                    "reg query HKLM\\SAM /s"
+                ]
+            },
+            "autorun and startup": {
+                "description": "Commands to get autorun and startup programs",
+                "commands": [
+                    "reg query HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+                    "reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+                ]
+            }
+        },
+        "netsh": {
+            "information": {
+                "advanced firewall": {
+                    "description": "Commands to get information about the advanced firewall settings and status",
+                    "commands": [
+                        "netsh advfirewall show allprofiles",
+                        "netsh advfirewall show currentprofile",
+                        "netsh advfirewall firewall show rule name=all",
+                        "netsh advfirewall monitor show firewall",
+                        "netsh advfirewall show global",
+                        "netsh advfirewall show localizedconfiguration"
+                    ]
+                },
+                "interface": {
+                    "description": "Commands to get information about the network interfaces",
+                    "commands": [
+                        "netsh interface show interface",
+                        "netsh interface ipv4 show interfaces",
+                        "netsh interface ipv6 show interfaces",
+                        "netsh interface ipv4 show addresses",
+                        "netsh interface ipv6 show interfaces",
+                        "netsh interface ip show config",
+                        "netsh interface portproxy show all",
+                        "netsh interface ipv4 show excludedportrang protcol=tcp",
+                        "netsh interface teredo show state"
+                    ]
+                },
+                "wlan": {
+                    "description": "Commands to get wireless lan information",
+                    "commands": [
+                        "netsh wlan show interfaces",
+                        "netsh wlan show profiles",
+                        "netsh wlan show networks mode=bssid",
+                        "netsh wlan show hostednetwork",
+                        "netsh wlan show drivers"
+                    ]
+                },
+                "sockets": {
+                    "description": "Commands to get information about sockets",
+                    "commands": [
+                        "netsh winsock show catalog",
+                        "netsh winsock show proxy",
+                        "netsh winsock show tracing"
+                    ]
+                },
+                "http": {
+                    "description": "Commands to get HTTP information",
+                    "commands": [
+                        "netsh http shwo urlacl",
+                        "netsh http show sslcert",
+                        "netsh http show iplisten",
+                        "netsh http show service state",
+                        "netsh http show global"
+                    ]
+                },
+                "trace": {
+                    "description": "Commands to get routing informaiton",
+                    "commands": [
+                        "netsh trace show status",
+                        "netsh trace show msmq",
+                        "netsh trace show persistent"
+                    ]
+                },
+                "dhcp client": {
+                    "description": "Commands to get DHCP client information",
+                    "commands": [
+                        "netsh dhcp client show interfaces"
+                    ]
+                },
+                "dhcp server": {
+                    "description": "Commands to get DHCP server information",
+                    "commands": [
+                        "netsh dhcp server show scope",
+                        "netsh dhcp server show lease"
+                    ]
+                },
+                "ipsec": {
+                    "description": "Commands to get IPSec information",
+                    "commands": [
+                        "netsh ipsec static show all",
+                        "netsh ipsec dynamic show all"
+                    ]
+                },
+                "branch cache": {
+                    "description": "Commands to get branching cache information",
+                    "commands": [
+                        "netsh brancecache show status all",
+                        "netsh brancecache show peerings",
+                        "netsh brancecache show hostedcache servers"
+                    ]
+                },
+                "p2p": {
+                    "description": "Commands to get Peer to Peer information",
+                    "commands": [
+                        "netsh p2p pnrp cloud show list",
+                        "netsh p2p pnrp peer show id"
+                    ]
+                },
+                "http api": {
+                    "description": "Commands to get HTTP API information",
+                    "commands": [
+                        "netsh http show iplisten"
+                    ]
+                }
+            }
+        }
+    },
+    "windows server": {
+
+    }
+}
